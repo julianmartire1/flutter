@@ -67,4 +67,9 @@ class Pelicula {
     if(posterPath == null) return 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png';
     return 'https://image.tmdb.org/t/p/w500/$posterPath';
   }
+
+  String getBackgroundImg() {
+    if(posterPath == null) return 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png';
+    return 'https://image.tmdb.org/t/p/w500/$backdropPath';
+  }
 }
