@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class PeliculasProvider {
   String _apikey = 'cd84abf057948ad46cfb2d9750756874';
   String _url = 'api.themoviedb.org';
-  String _language = 'es-ARS';
+  String _language = 'es-AR';
   int _popularesPage = 0;
   bool _cargando = false;
 
@@ -72,5 +72,15 @@ class PeliculasProvider {
     final cast = Cast.fromJsonList(decodedData['cast']);
 
     return cast.actores;
+  }
+  
+  Future<List<Pelicula>> getPelicula(String query) async {
+    final url = Uri.https(_url, '3/search/movie', {
+      'api_key': _apikey,
+      'language': _language,
+      'query': query
+    });
+
+    return await _procesarRespuesta(url);
   }
 }
