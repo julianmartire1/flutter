@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:preferencias_usuario/src/shared_prefs/preferenciasUsuarios.dart';
 import 'package:preferencias_usuario/src/widgets/menu.widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   static final String routeName = 'settings';
@@ -10,37 +10,34 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool _colorSecundario = false;
-  int _genero = 1;
-  String _nombre = 'Pepe';
+  bool _colorSecundario;
+  int _genero;
+  String _nombre;
 
   TextEditingController _textController;
+
+  final pref = PreferenciasUsuario();
 
   @override
   void initState() {
     super.initState();
-    _cargarPref();
+    _genero = pref.genero;
+    _colorSecundario = pref.colorSecundario;
+    _nombre = pref.nombreUsuario;
+    pref.ultimaPagina = SettingsPage.routeName;
     _textController = TextEditingController(text: _nombre);
   }
 
-  _cargarPref() async{
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    _genero = pref.getInt('genero');
-    setState(() {});
-  }
-
-  _setSelectedRadio(int value) async{
+  _setSelectedRadio(int value) {
+    pref.genero = value;
     _genero = value;
     setState(() {});
-
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setInt('genero', value);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Ajustes'),),
+      appBar: AppBar(title: Text('Ajustes'), backgroundColor: pref.colorSecundario ? Colors.teal : Colors.blue),
       drawer: MenuWidget(),
       body: ListView(
         children: <Widget>[
@@ -55,6 +52,7 @@ class _SettingsPageState extends State<SettingsPage> {
             onChanged: (value) {
               setState(() {
                 _colorSecundario = value;
+                pref.colorSecundario = value;
               });
             },
           ),
@@ -77,7 +75,9 @@ class _SettingsPageState extends State<SettingsPage> {
             child: TextField(
               controller: _textController,
               decoration: InputDecoration(labelText: 'Nombre', helperText: 'Nombre de la persona', ),
-              onChanged: (String value) {},
+              onChanged: (String value) {
+                pref.nombreUsuario = value;
+              },
             ),
           )
         ],
