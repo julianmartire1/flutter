@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:form_validation/src/blocs/provider.dart';
 import 'package:form_validation/src/services/usuario.service.dart';
 
-class LoginPage extends StatelessWidget {
-  final usuarioService = UsuarioService();
+class RegistroPage extends StatelessWidget {
+  final userService = UsuarioService();
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           _crearFondo(context),
-          _loginForm(context),
+          _registrarForm(context),
         ],
       ),
     );
@@ -86,7 +86,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _loginForm(context) {
+  Widget _registrarForm(context) {
     final bloc = Provider.of(context);
     return SingleChildScrollView(
       child: Column(
@@ -113,7 +113,7 @@ class LoginPage extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 Text(
-                  'Ingreso',
+                  'Crear Cuenta',
                   style: TextStyle(fontSize: 20.0),
                 ),
                 SizedBox(
@@ -128,8 +128,8 @@ class LoginPage extends StatelessWidget {
             ),
           ),
           FlatButton(
-            child: Text('Crear una nueva cuenta'),
-            onPressed: () => Navigator.pushReplacementNamed(context, 'registro'),
+            child: Text('¿Ya tienes cuenta? Login'),
+            onPressed: () => Navigator.pushReplacementNamed(context, 'login'),
           ),
           SizedBox(
             height: 100.0,
@@ -194,7 +194,7 @@ class LoginPage extends StatelessWidget {
         return RaisedButton(
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-            child: Text('Iniciar Sesion'),
+            child: Text('Crear Cuenta'),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),
@@ -202,14 +202,15 @@ class LoginPage extends StatelessWidget {
           elevation: 0.0,
           color: Colors.deepPurple,
           textColor: Colors.white,
-          onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
+          onPressed: snapshot.hasData ? () => _registrar(bloc, context) : null,
         );
       },
     );
   }
 
-  _login(bloc, context) {
-    usuarioService.login(bloc.email, bloc.password);
-    //Navigator.pushNamed(context, 'home');
+  _registrar(bloc, context) {
+    userService.nuevoUsuario(bloc.email, bloc.password);
+
+    // Navigator.pushNamed(context, 'home');
   }
 }

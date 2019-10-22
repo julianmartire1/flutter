@@ -84,7 +84,6 @@ class _ProductoPageState extends State<ProductoPage> {
       validator: (valor) {
         if (utils.isNumeric(valor)) return null;
         return 'Solo numeros';
-        ;
       },
     );
   }
@@ -106,6 +105,10 @@ class _ProductoPageState extends State<ProductoPage> {
     formKey.currentState.save();
     _guardando = true;
     setState(() {});
+
+    if(foto != null) {
+      producto.url = await productoService.subirImagen(foto);
+    }
 
     if (producto.id == null)
       await productoService.crearProducto(producto);
@@ -142,29 +145,42 @@ class _ProductoPageState extends State<ProductoPage> {
   }
 
   _mostrarFoto() {
-    if(producto.url != null) {
-      return Container();
-    } else {
-      return Image(
-        image: AssetImage(foto?.path ?? 'assets/no-image.png'),
+    if (producto.url != null) {
+      return FadeInImage(
+        image: NetworkImage(producto.url),
+        placeholder: AssetImage('assets/jar-loading.gif'),
         height: 300.0,
-        fit: BoxFit.cover,
+        fit: BoxFit.contain,
       );
+    } else {
+      return foto == null
+          ? Image(
+              image: AssetImage('assets/no-image.png'),
+              height: 300.0,
+              fit: BoxFit.cover,
+            )
+          : Image.file(
+              File(foto.path),
+              height: 300.0,
+              fit: BoxFit.cover,
+            );
     }
   }
 
   _seleccionarFoto() async {
-    foto = await ImagePicker.pickImage(
-      source: ImageSource.gallery
-    );
-    if(foto != null) {
+    _procesarImagen(ImageSource.gallery);
+  }
 
+  _tomarFoto() async {
+    _procesarImagen(ImageSource.camera);
+  }
+
+  _procesarImagen(ImageSource type) async {
+    foto = await ImagePicker.pickImage(source: type);
+    if (foto != null) {
+      producto.url = null;
     }
 
     setState(() {});
-  }
-
-  _tomarFoto() {
-
   }
 }

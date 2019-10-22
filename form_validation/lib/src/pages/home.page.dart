@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:form_validation/src/blocs/provider.dart';
+// import 'package:form_validation/src/blocs/provider.dart';
 import 'package:form_validation/src/models/producto.model.dart';
 import 'package:form_validation/src/services/producto.service.dart';
 
@@ -7,7 +7,7 @@ class HomePage extends StatelessWidget {
   final productosService = ProductoService();
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context);
+    // final bloc = Provider.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Home page'),
@@ -49,14 +49,40 @@ class HomePage extends StatelessWidget {
     return Dismissible(
       key: UniqueKey(),
       background: Container(color: Colors.red),
-      child: ListTile(
-        title: Text('${producto.titulo} - ${producto.valor}'),
-        subtitle: Text('${producto.id}'),
-        onTap: () => Navigator.pushNamed(context, 'producto', arguments: producto),
+      child: Card(
+        child: Column(
+          children: <Widget>[
+            producto.url == null
+                ? Image(
+                    image: AssetImage('assets/no-image.png'),
+                  )
+                : FadeInImage(
+                    image: NetworkImage(producto.url),
+                    placeholder: AssetImage('assets/jar-loading.gif'),
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    height: 300.0,
+                  ),
+            ListTile(
+              title: Text('${producto.titulo} - ${producto.valor}'),
+              subtitle: Text('${producto.id}'),
+              onTap: () =>
+                  Navigator.pushNamed(context, 'producto', arguments: producto),
+            )
+          ],
+        ),
       ),
       onDismissed: (direction) {
         productosService.eliminarProducto(producto.id);
       },
     );
   }
+  /**
+   * 
+   * ListTile(
+        title: Text('${producto.titulo} - ${producto.valor}'),
+        subtitle: Text('${producto.id}'),
+        onTap: () => Navigator.pushNamed(context, 'producto', arguments: producto),
+      )
+   */
 }
