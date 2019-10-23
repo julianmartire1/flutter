@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:form_validation/src/preferences/preferencias.preferencias.dart';
 import 'package:http/http.dart' as http;
 
 class UsuarioService {
   final String _apiKey = 'AIzaSyB2fF4sHRe8tdcKQFDReoYyfkDw33MYBHs';
+  final _pref = PreferenciasUsuario();
 
   Future<Map<String, dynamic>> nuevoUsuario(
       String email, String password) async {
@@ -21,9 +23,10 @@ class UsuarioService {
     print(decodeResp);
 
     if (decodeResp.containsKey('idToken')) {
+      _pref.token = decodeResp['idToken'];
       return {'ok': true, 'token': decodeResp['idToken']};
     } else {
-      return {'ok': false, 'token': decodeResp['error']['messaje']};
+      return {'ok': false, 'message': decodeResp['error']['message']};
     }
   }
 
@@ -42,9 +45,10 @@ class UsuarioService {
     print(decodeResp);
 
     if (decodeResp.containsKey('idToken')) {
+      _pref.token = decodeResp['idToken'];
       return {'ok': true, 'token': decodeResp['idToken']};
     } else {
-      return {'ok': false, 'token': decodeResp['error']['messaje']};
+      return {'ok': false, 'message': decodeResp['error']['message']};
     }
   }
 }

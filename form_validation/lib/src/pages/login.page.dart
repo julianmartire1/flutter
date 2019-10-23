@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:form_validation/src/blocs/provider.dart';
 import 'package:form_validation/src/services/usuario.service.dart';
+import 'package:form_validation/src/utils/utils.dart' as utils;
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final usuarioService = UsuarioService();
+
+  bool desabilitarBoton = false;
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +137,8 @@ class LoginPage extends StatelessWidget {
           ),
           FlatButton(
             child: Text('Crear una nueva cuenta'),
-            onPressed: () => Navigator.pushReplacementNamed(context, 'registro'),
+            onPressed: () =>
+                Navigator.pushReplacementNamed(context, 'registro'),
           ),
           SizedBox(
             height: 100.0,
@@ -202,14 +211,25 @@ class LoginPage extends StatelessWidget {
           elevation: 0.0,
           color: Colors.deepPurple,
           textColor: Colors.white,
-          onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
+          onPressed: desabilitarBoton ? null : snapshot.hasData ? () => _login(bloc, context) : null,
         );
       },
     );
   }
 
-  _login(bloc, context) {
-    usuarioService.login(bloc.email, bloc.password);
-    //Navigator.pushNamed(context, 'home');
+  _login(bloc, context) async {
+    desabilitarBoton = true;
+    setState(() {});
+
+    Map info = await usuarioService.login(bloc.email, bloc.password);
+
+    desabilitarBoton = false;
+    setState(() {});
+
+    if (info['ok']) {
+      Navigator.pushNamed(context, 'home');
+    } else {
+      utils.mostrarAlerta(context, info['message'] ?? 'Error');
+    }
   }
 }

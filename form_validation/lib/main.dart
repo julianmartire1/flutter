@@ -4,12 +4,20 @@ import 'package:form_validation/src/pages/home.page.dart';
 import 'package:form_validation/src/pages/login.page.dart';
 import 'package:form_validation/src/pages/producto.page.dart';
 import 'package:form_validation/src/pages/registro.page.dart';
+import 'package:form_validation/src/preferences/preferencias.preferencias.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  final prefs = PreferenciasUsuario();
+  await prefs.initPrefs();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final prefs = PreferenciasUsuario();
+    print(prefs.token);
+
     return Provider(
       child: MaterialApp(
         title: 'Material App',

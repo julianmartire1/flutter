@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:form_validation/src/blocs/provider.dart';
 import 'package:form_validation/src/services/usuario.service.dart';
+import 'package:form_validation/src/utils/utils.dart' as utils;
 
-class RegistroPage extends StatelessWidget {
+class RegistroPage extends StatefulWidget {
+  @override
+  _RegistroPageState createState() => _RegistroPageState();
+}
+
+class _RegistroPageState extends State<RegistroPage> {
   final userService = UsuarioService();
+
+  bool desabilitarBoton = false;
 
   @override
   Widget build(BuildContext context) {
@@ -202,15 +210,26 @@ class RegistroPage extends StatelessWidget {
           elevation: 0.0,
           color: Colors.deepPurple,
           textColor: Colors.white,
-          onPressed: snapshot.hasData ? () => _registrar(bloc, context) : null,
+          onPressed: desabilitarBoton ? null : snapshot.hasData ? () => _registrar(bloc, context) : null,
         );
       },
     );
   }
 
-  _registrar(bloc, context) {
-    userService.nuevoUsuario(bloc.email, bloc.password);
+  _registrar(bloc, context) async {
+    desabilitarBoton = true;
+    setState(() {});
 
+    Map info = await userService.nuevoUsuario(bloc.email, bloc.password);
+
+    desabilitarBoton = false;
+    setState(() {});
+
+    if (info['ok']) {
+      Navigator.pushNamed(context, 'home');
+    } else {
+      utils.mostrarAlerta(context, info['message'] ?? 'Error');
+    }
     // Navigator.pushNamed(context, 'home');
   }
 }
