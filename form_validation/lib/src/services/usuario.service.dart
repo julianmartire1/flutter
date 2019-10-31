@@ -1,10 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:form_validation/src/preferences/preferencias.preferencias.dart';
 import 'package:http/http.dart' as http;
 
 class UsuarioService {
-  final String _apiKey = 'AIzaSyB2fF4sHRe8tdcKQFDReoYyfkDw33MYBHs';
+  final String _apiKey = 'AIzaSyBygCNzp2rhJnxWppI63dFSPLc0ljo2EDA';
   final _pref = PreferenciasUsuario();
 
   Future<Map<String, dynamic>> nuevoUsuario(
@@ -50,5 +51,10 @@ class UsuarioService {
     } else {
       return {'ok': false, 'message': decodeResp['error']['message']};
     }
+  }
+
+  void logout(context) {
+    _pref.token = null;
+    Navigator.pushReplacementNamed(context, 'login');
   }
 }

@@ -2,16 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:form_validation/src/blocs/productos.bloc.dart';
 import 'package:form_validation/src/blocs/provider.dart';
 import 'package:form_validation/src/models/producto.model.dart';
-import 'package:form_validation/src/services/producto.service.dart';
+import 'package:form_validation/src/services/usuario.service.dart';
+// import 'package:form_validation/src/services/producto.service.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final productosBloc = Provider.productosBloc(context);
     productosBloc.cargarProductos();
+
+    final UsuarioService usuarioService = UsuarioService();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Home page'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () => usuarioService.logout(context),
+          )
+        ],
       ),
       body: _traerListado(productosBloc),
       floatingActionButton: _crearBoton(context),
@@ -30,6 +40,7 @@ class HomePage extends StatelessWidget {
     return StreamBuilder(
       stream: productosBloc.productoStream,
       builder: (BuildContext context, AsyncSnapshot<List<ProductoModel>> snapshot) {
+        //print(snapshot);
         if (!snapshot.hasData)
           return Center(
             child: CircularProgressIndicator(),

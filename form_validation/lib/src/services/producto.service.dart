@@ -8,7 +8,7 @@ import 'package:mime_type/mime_type.dart';
 import 'package:http_parser/http_parser.dart';
 
 class ProductoService {
-  final String _url = 'https://push-5b37d.firebaseio.com';
+  final String _url = 'https://tp-2-f40f5.firebaseio.com/';
   final _prefs = PreferenciasUsuario();
 
   Future<bool> crearProducto(ProductoModel producto) async {

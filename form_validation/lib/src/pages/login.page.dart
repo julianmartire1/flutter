@@ -227,7 +227,7 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {});
 
     if (info['ok']) {
-      Navigator.pushNamed(context, 'home');
+      Navigator.pushReplacementNamed(context, 'home');
     } else {
       utils.mostrarAlerta(context, info['message'] ?? 'Error');
     }

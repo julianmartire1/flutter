@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "596025249928",
+    "firebase_url": "https://inner-synapse-237913.firebaseio.com",
+    "project_id": "inner-synapse-237913",
+    "storage_bucket": "inner-synapse-237913.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:596025249928:android:230c8c090e2a74e5e04f3d",
+        "android_client_info": {
+          "package_name": "com.example.hay_equipo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "596025249928-dvqvruv9cun8nrlhk2r3drsm6bfguu4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hay_equipo",
+            "certificate_hash": "92c5de4436f736c5136e5b4f92acb0a1a236f2ab"
+          }
+        },
+        {
+          "client_id": "596025249928-85q5ia1088eju2rsl8j9s1flm9iub4bh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBV5PtrowENOOQInN-MNhJ2V47KilskSp8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "596025249928-85q5ia1088eju2rsl8j9s1flm9iub4bh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
