@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
           data.getIdToken().then((token) {
             prefs.token = token.token;
             prefs.user = B64urlEncRfc7515.decodeUtf8(token.token.split('.')[1]);
-            Navigator.of(context).pushNamed(HomePage.routeName);
+            Navigator.of(context).pushReplacementNamed(HomePage.routeName);
           });
         });
       },

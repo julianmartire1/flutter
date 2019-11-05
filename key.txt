@@ -1,0 +1,2 @@
+casa
+keytool -list -v -keystore C:\Users\julian\.android\debug.keystore -alias androiddebugkey -storepass android -keypass android

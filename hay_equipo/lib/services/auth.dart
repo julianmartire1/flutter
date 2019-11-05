@@ -30,7 +30,7 @@ Future<FirebaseUser> signInWithGoogle() async {
   return user;
 }
 
-void signOutGoogle(context) async{
+void signOutGoogle(context) async {
   await googleSignIn.signOut();
   _pref.token = null;
   _pref.user = null;
