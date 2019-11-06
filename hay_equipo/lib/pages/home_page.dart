@@ -27,22 +27,35 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.circular(100.0),
-              child: Image(
-                image: NetworkImage(user.picture),
-                fit: BoxFit.cover,
-                height: 150.0,
-              ),
-            ),
-            SizedBox(height: 30.0),
-            Text(
-              user.name,
-              style: TextStyle(fontSize: 30.0),
+            Table(
+              children: [
+                
+              ],
             )
+            //_perfil(user)
           ],
         ),
       ),
+    );
+  }
+
+  Widget _perfil(UserModel user) {
+    return Column(
+      children: <Widget>[
+        ClipRRect(
+          borderRadius: BorderRadius.circular(100.0),
+          child: Image(
+            image: NetworkImage(user.picture),
+            fit: BoxFit.cover,
+            height: 150.0,
+          ),
+        ),
+        SizedBox(height: 30.0),
+        Text(
+          user.name,
+          style: TextStyle(fontSize: 30.0),
+        )
+      ],
     );
   }
 }
