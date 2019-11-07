@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar_example/src/pages/home_page.dart';
+import 'package:table_calendar_example/src/pages/second_page.dart';
 
 void main() {
   initializeDateFormatting().then((_) => runApp(MyApp()));
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(title: 'Table Calendar Demo'),
+      // home: HomePage(title: 'Table Calendar Demo'),
+      home: SecondPage(),
     );
   }
 }
