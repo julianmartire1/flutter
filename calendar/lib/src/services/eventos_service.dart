@@ -4,7 +4,7 @@ import 'dart:convert';
 class EventoServices {
   Future<Map<DateTime, List>> getEventos() async {
     final url =
-        'https://52a105d0-69dc-4d16-a0e6-db7d5f79eade.mock.pstmn.io/probando';
+        'https://51eb21af-ab4c-49f2-9666-eb636ced713d.mock.pstmn.io/reservas';
     final resp = await http.get(url);
     final Map<String, dynamic> decodedData = json.decode(resp.body);
     final Map<DateTime, List> eventos = Map<DateTime, List>();

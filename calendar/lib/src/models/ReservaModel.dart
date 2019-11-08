@@ -6,6 +6,7 @@ class ReservaModel {
   DateTime horarioHasta;
   int horarioHastaNum;
   int idUsuario;
+  String nombreUser;
   int idCancha;
   int idPredio;
   int estado;
@@ -18,6 +19,7 @@ class ReservaModel {
     this.horarioHasta,
     this.horarioHastaNum,
     this.idUsuario,
+    this.nombreUser,
     this.idCancha,
     this.idPredio,
     this.estado,
