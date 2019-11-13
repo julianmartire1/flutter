@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar_example/src/models/ReservaModel.dart';
+import 'package:table_calendar_example/src/services/eventos_service.dart';
 import 'package:table_calendar_example/src/utils/utils.dart' as utils;
 import 'package:intl/intl.dart';
 
@@ -11,6 +12,7 @@ class SecondPage extends StatefulWidget {
 class _SecondPageState extends State<SecondPage> {
   List<utils.Horas> _horasGrilla;
   Color colorCard;
+  EventoServices _eventoServices = EventoServices();
   @override
   void initState() {
     super.initState();
@@ -21,7 +23,8 @@ class _SecondPageState extends State<SecondPage> {
   @override
   Widget build(BuildContext context) {
     colorCard = Colors.green[700];
-
+    _eventoServices.getReservaDelDia(DateTime.now());
+    
     return Scaffold(
         appBar: AppBar(
           title: Text('Second Page'),
@@ -45,12 +48,11 @@ class _SecondPageState extends State<SecondPage> {
           width: MediaQuery.of(context).size.width * 0.30,
           padding:
               EdgeInsets.only(bottom: 40.0, left: 30.0, right: 30.0, top: 5.0),
-          decoration:
-              BoxDecoration(border: Border(
-                right: BorderSide(color: Colors.grey, width: 1.0),
-                top: BorderSide(color: Colors.grey, width: 1.0),
-                bottom: BorderSide(color: Colors.grey, width: 1.0)
-              )),
+          decoration: BoxDecoration(
+              border: Border(
+                  right: BorderSide(color: Colors.grey, width: 1.0),
+                  top: BorderSide(color: Colors.grey, width: 1.0),
+                  bottom: BorderSide(color: Colors.grey, width: 1.0))),
           child: Text(
             hora.hora,
             style: TextStyle(color: Colors.grey, fontSize: 20.0),
@@ -68,20 +70,22 @@ class _SecondPageState extends State<SecondPage> {
           horarioHastaNum: 3,
           horarioDesde: DateTime(2019, 11, 8, 0, 30),
           horarioHasta: DateTime(2019, 11, 8, 2, 00),
-          nombreUser: 'Jorge Lopez'),
+          nombreUser: 'Jorge Lopez',
+          fechaAlquiler: DateTime.now()),
       ReservaModel(
           horarioDesdeNum: 4,
           horarioHastaNum: 5,
           horarioDesde: DateTime(2019, 11, 8, 2, 0),
           horarioHasta: DateTime(2019, 11, 8, 3, 0),
-          nombreUser: 'Martin Lutero'),
+          nombreUser: 'Martin Lutero',
+          fechaAlquiler: DateTime.now()),
     ];
 
     bool pintar = false;
     int i = 0;
     return Column(
       children: _horasGrilla.map((hora) {
-        Widget contenedor;
+        Container contenedor;
         ReservaModel reserva = alquilado[i];
 
         if (reserva.horarioDesdeNum == hora.numero) {
@@ -91,6 +95,7 @@ class _SecondPageState extends State<SecondPage> {
           pintar = false;
           i += ((i + 1) != alquilado.length) ? 1 : 0;
           contenedor = _pintarHasta(context);
+          print(reserva.horarioDesde);
         } else if (pintar) {
           contenedor = _pintarIntermedio(context);
         } else {
@@ -139,8 +144,8 @@ class _SecondPageState extends State<SecondPage> {
         margin: EdgeInsets.only(bottom: 5.0, left: 20.0, right: 20.0),
         decoration: BoxDecoration(
             color: colorCard,
-            borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(25.0))),
+            borderRadius:
+                BorderRadius.only(bottomRight: Radius.circular(25.0))),
       ),
       decoration: BoxDecoration(
           border: Border(
@@ -169,8 +174,7 @@ class _SecondPageState extends State<SecondPage> {
         margin: EdgeInsets.only(top: 5.0, left: 20.0, right: 20.0),
         decoration: BoxDecoration(
             color: colorCard,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25.0))),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(25.0))),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
           alignment: Alignment(-1.0, -1.0),

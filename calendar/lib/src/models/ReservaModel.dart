@@ -10,6 +10,7 @@ class ReservaModel {
   int idCancha;
   int idPredio;
   int estado;
+  DateTime fechaCuandoAlquilo;
 
   ReservaModel({
     this.id,
@@ -23,5 +24,6 @@ class ReservaModel {
     this.idCancha,
     this.idPredio,
     this.estado,
+    this.fechaCuandoAlquilo
   });
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:table_calendar_example/src/pages/hero_page.dart';
+import 'package:table_calendar_example/src/pages/home_page.dart';
 import 'package:table_calendar_example/src/pages/second_page.dart';
 
 void main() {
@@ -16,7 +18,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: HomePage(title: 'Table Calendar Demo'),
-      home: SecondPage(),
+      // home: SecondPage(),
+      initialRoute: 'second',
+      routes: {
+        '/': (BuildContext context) => HomePage(),
+        'second': (BuildContext context) => SecondPage(),
+        'hero': (BuildContext context) => HeroPage(),
+      },
     );
   }
 }
