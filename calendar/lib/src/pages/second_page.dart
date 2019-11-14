@@ -23,7 +23,7 @@ class _SecondPageState extends State<SecondPage> {
   @override
   Widget build(BuildContext context) {
     colorCard = Colors.green[700];
-    _eventoServices.getReservaDelDia(DateTime.now());
+    print(_eventoServices.getReservaDelDia(DateTime.now()));
     
     return Scaffold(
         appBar: AppBar(

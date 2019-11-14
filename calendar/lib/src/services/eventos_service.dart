@@ -29,18 +29,21 @@ class EventoServices {
   }
 
   Future<List<ReservaModel>> getReservaDelDia(DateTime date) async {
+    try {
       var resp =
           await http.post("$_url/reserva", body: {"date": date.toString()});
       final decodedData = json.decode(resp.body);
-      final List<ReservaModel> reserva = List<ReservaModel>();
-      print(decodedData);
+      
       if (decodedData == null) return [];
+      if (decodedData['codigo'] != 200) return [];
 
-      decodedData.forEach((i, value) {
-        print(i);
-        print(value);
-      });
-      return reserva;
+      final reservas = Reservas.fromJsonList(decodedData['reservas']);
+
+      return reservas.items;
+    } catch (e) {
+      print(e);
+      return [];
+    }
 
     // print(reserva);
   }
