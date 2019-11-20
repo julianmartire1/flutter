@@ -38,9 +38,10 @@ class EventoServices {
       if (decodedData['codigo'] != 200) return [];
 
       final reservas = Reservas.fromJsonList(decodedData['reservas']);
-
+      /* print('-------------RESERVAS-------------');
+      print(reservas.items[0].toString()); */
       return reservas.items;
-    } catch (e) {
+    } on Exception catch (e) {
       print(e);
       return [];
     }

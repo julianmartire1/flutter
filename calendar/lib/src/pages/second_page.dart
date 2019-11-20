@@ -13,31 +13,43 @@ class _SecondPageState extends State<SecondPage> {
   List<utils.Horas> _horasGrilla;
   Color colorCard;
   EventoServices _eventoServices = EventoServices();
+  List<ReservaModel> alquilado;
   @override
   void initState() {
     super.initState();
     _horasGrilla = utils.obtenerHoras();
-    // print(utils.obtenerHoras());
+    alquilado = [];
   }
 
   @override
   Widget build(BuildContext context) {
     colorCard = Colors.green[700];
-    print(_eventoServices.getReservaDelDia(DateTime.now()));
-    
+
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Second Page'),
+      appBar: AppBar(
+        title: Text('Second Page'),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(10.0),
+        child: FutureBuilder(
+          future: _eventoServices.getReservaDelDia(DateTime.now()),
+          builder: (BuildContext context, AsyncSnapshot<List<ReservaModel>> snapshot) {
+            if (!snapshot.hasData)
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+
+            alquilado = snapshot.data;
+            return Row(
+              children: <Widget>[
+                _agregarHoras(context),
+                Expanded(child: _agregarAlquilados(context))
+              ],
+            );
+          },
         ),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.all(10.0),
-          child: Row(
-            children: <Widget>[
-              _agregarHoras(context),
-              Expanded(child: _agregarAlquilados(context))
-            ],
-          ),
-        ));
+      ),
+    );
   }
 
   Widget _agregarHoras(BuildContext context) {
@@ -64,7 +76,7 @@ class _SecondPageState extends State<SecondPage> {
   }
 
   Widget _agregarAlquilados(BuildContext context) {
-    List<ReservaModel> alquilado = [
+    /* List<ReservaModel> alquilado = [
       ReservaModel(
           horarioDesdeNum: 1,
           horarioHastaNum: 3,
@@ -79,7 +91,7 @@ class _SecondPageState extends State<SecondPage> {
           horarioHasta: DateTime(2019, 11, 8, 3, 0),
           nombreUser: 'Martin Lutero',
           fechaAlquiler: DateTime.now()),
-    ];
+    ]; */
 
     bool pintar = false;
     int i = 0;
@@ -95,7 +107,7 @@ class _SecondPageState extends State<SecondPage> {
           pintar = false;
           i += ((i + 1) != alquilado.length) ? 1 : 0;
           contenedor = _pintarHasta(context);
-          print(reserva.horarioDesde);
+          // print(reserva.horarioDesde);
         } else if (pintar) {
           contenedor = _pintarIntermedio(context);
         } else {

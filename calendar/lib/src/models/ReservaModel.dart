@@ -27,20 +27,19 @@ class ReservaModel {
   int estado;
   DateTime fechaCuandoAlquilo;
 
-  ReservaModel({
-    this.id,
-    this.fechaAlquiler,
-    this.horarioDesde,
-    this.horarioDesdeNum,
-    this.horarioHasta,
-    this.horarioHastaNum,
-    this.idUsuario,
-    this.nombreUser,
-    this.idCancha,
-    this.idPredio,
-    this.estado,
-    this.fechaCuandoAlquilo
-  });
+  ReservaModel(
+      {this.id,
+      this.fechaAlquiler,
+      this.horarioDesde,
+      this.horarioDesdeNum,
+      this.horarioHasta,
+      this.horarioHastaNum,
+      this.idUsuario,
+      this.nombreUser,
+      this.idCancha,
+      this.idPredio,
+      this.estado,
+      this.fechaCuandoAlquilo});
 
   ReservaModel.fromJsonMap(Map<String, dynamic> json) {
     id = json["id"];
@@ -55,5 +54,23 @@ class ReservaModel {
     idPredio = json["idPredio"];
     estado = json["estado"];
     fechaCuandoAlquilo = DateTime.parse(json["fechaCuandoAlquilo"]);
+  }
+
+  @override
+  String toString() {
+    return {
+      "id": this.id,
+      "fechaAlquiler": this.fechaAlquiler,
+      "horarioDesde": this.horarioDesde,
+      "horarioDesdeNum": this.horarioDesdeNum,
+      "horarioHasta": this.horarioHasta,
+      "horarioHastaNum": this.horarioHastaNum,
+      "idUsuario": this.idUsuario,
+      "nombreUser": this.nombreUser,
+      "idCancha": this.idCancha,
+      "idPredio": this.idPredio,
+      "estado": this.estado,
+      "fechaCuandoAlquilo": this.fechaCuandoAlquilo
+    }.toString();
   }
 }
