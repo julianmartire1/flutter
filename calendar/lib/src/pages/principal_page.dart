@@ -41,7 +41,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
             Color.fromRGBO(13, 171, 97, 1.0),
             Color.fromRGBO(2, 145, 78, 1.0),
           ], end: Alignment.topCenter, begin: Alignment.bottomCenter),
-          borderRadius: BorderRadius.circular(60.0),
+          borderRadius: BorderRadius.circular(55.0),
         ),
       ),
     );
@@ -53,7 +53,7 @@ class _PrincipalPageState extends State<PrincipalPage> {
         children: <Widget>[
           Positioned(
             child: cajaVerde,
-            top: -100.0,
+            top: -90.0,
             // right: 5.0,
           )
         ],
@@ -143,18 +143,20 @@ class _PrincipalPageState extends State<PrincipalPage> {
         child: Material(
           child: InkWell(
             borderRadius: BorderRadius.circular(20.0),
-            onTap: () {},
+            onTap: () => Navigator.pushNamed(context, 'reservas'),
             child: Column(
               children: <Widget>[
                 SizedBox(
                   height: 15.0,
                 ),
-                Center(child: Text('Ver todas las reservas', 
+                Center(
+                    child: Text(
+                  'Ver todas las reservas',
                   style: TextStyle(
-                    color: Color.fromRGBO(2, 145, 78, 1.0),
-                    fontSize: 20.0,
-                    fontFamily: 'Alata'
-                  ),)),
+                      color: Color.fromRGBO(2, 145, 78, 1.0),
+                      fontSize: 20.0,
+                      fontFamily: 'Alata'),
+                )),
                 SizedBox(
                   height: 15.0,
                 ),

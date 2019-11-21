@@ -4,14 +4,12 @@ import 'package:table_calendar_example/src/services/eventos_service.dart';
 import 'package:async/async.dart';
 import 'package:intl/intl.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
-
+class CalendarioPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _CalendarioPageState createState() => _CalendarioPageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _CalendarioPageState extends State<CalendarioPage> with TickerProviderStateMixin {
   Map<DateTime, List> _events;
   List _selectedEvents = [];
   AnimationController _animationController;
@@ -296,4 +294,5 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
     return aux;
   }
+
 }
