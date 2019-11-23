@@ -135,25 +135,13 @@ class _ReservasPageState extends State<ReservasPage>
     return Stack(
       children: <Widget>[
         Container(
-          alignment: Alignment.centerLeft,
-          child: Center(
-              child: Text('5v5',
-                  style: TextStyle(color: Colors.white, fontSize: 20.0))),
-          width: 45.0,
+          // padding: EdgeInsets.only(left: 50),
           height: 210.0,
-          decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(50.0),
-                  topRight: Radius.circular(50.0))),
-        ),
-        Container(
-          height: 210.0,
-          width: 100,
+          width: double.infinity,
           child: PageView.builder(
             itemBuilder: (BuildContext context, int i) {
               return Container(
-                margin: EdgeInsets.all(15.0),
+                margin: EdgeInsets.only(left: 55.0, top: 15.0, bottom: 15.0, right: 15.0),
                 child: Center(
                   child: Text(
                     'text $i',
@@ -175,6 +163,19 @@ class _ReservasPageState extends State<ReservasPage>
             },
             itemCount: 5,
           ),
+        ),
+        Container(
+          alignment: Alignment.centerLeft,
+          child: Center(
+              child: Text('5v5',
+                  style: TextStyle(color: Colors.white, fontSize: 20.0))),
+          width: 45.0,
+          height: 210.0,
+          decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(50.0),
+                  topRight: Radius.circular(50.0))),
         ),
       ],
     );
